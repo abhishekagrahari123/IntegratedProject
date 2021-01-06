@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Topics</title>
+  </head>
+  <body>
+    <h1 align="center" background-color="red"> Topic Names .. </h1>
+    <% b.forEach((topic) => { %>
+      <h2><%= topic.name %> </h2>
+      <% if (user !=null) { %>
+      <a href="/topic_question/<%= topic._id %>"> Click here to find questions </a>
+      <% } else { %>
+      <a href="/">  <h3> Login to see the questions </h3> </a>
+      <% } %>
+
+
+      <% }) %>
+
+
+      </body>
+      </html>

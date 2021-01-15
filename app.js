@@ -6,10 +6,11 @@ const {requireAuth, checkUser} = require('./middleware/authMiddleware');
 const AdminBro = require('admin-bro');
 const AdminBroExpress = require('@admin-bro/express');
 const AdminBroMongoose = require('@admin-bro/mongoose');
-//const user = require('./models/user.js');
+const user = require('./models/User.js');
 const topic = require('./models/topics.js');
 const question =require('./models/questions.js')
 const mainroutes = require('./routes/mainroutes.js');
+const addqRoutes = require('./routes/addqRoutes');
 
 const app = express();
 
@@ -32,9 +33,8 @@ const run = async () => {
     const mongooseDb = await mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true} );
     app.listen(3000);
     const AdminBroOptions = {
-        databases: [mongooseDb],
         rootPath: '/admin',
-      //  resources: [topic,question]
+       resources: [user,topic,question]
     }
     const adminBro = new AdminBro(AdminBroOptions);
     const router = AdminBroExpress.buildRouter(adminBro);
@@ -45,9 +45,11 @@ run().catch(err => console.log(err));
 
 //routes
 app.get('*',checkUser);
-app.get('/',(req,res)=>res.render('home'));
-app.get('/smoothies', requireAuth, (req,res)=>res.render('smoothies'));   
+app.get('/',(req,res)=>res.render('home'));  
 app.use(authRoutes);
+
+app.use(requireAuth);
+app.use(addqRoutes);
 app.use(mainroutes);
 
 

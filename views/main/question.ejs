@@ -1,18 +1,9 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>questions</title>
-  </head>
-  <body>
-    <h1> Questions are </h1>
+<%- include('../partials/header'); -%>
+   
     <% list.forEach((question) => { %>
-      <h2><%= question.name %> </h2>
-       <a href="<%= question.link %>"><h3> link to question </h3> </a>
+      
+      <% if(question.approv){ %>   <a href="<%= question.link %>"><h2><%= question.name %> </h2> </a><% } %>
+      
+    <% }) %>
 
-
-      <% }) %>
-
-
-      </body>
-      </html>
+ <%- include('../partials/footer'); -%>

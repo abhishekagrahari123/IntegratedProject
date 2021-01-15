@@ -1,14 +1,9 @@
-<div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Add Question</h4>
-        </div>
-        <div class="modal-body">
-            <form>
+<div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+        <span class="close">&times;</span>
+            <form id="demo2">
                 <label for="question">Question Name</label>
                 <input type="text" name="name" required/>
                 
@@ -16,13 +11,11 @@
             
                 <select name="topic" id="myList" required>  
                     <option>  </option>
-                    <% const result = await topicModel.find();
-                    res.render('addq',{b:result}); %>
-                    
-                    <% b.forEach((topic) => { %>
-                            <option>  <%= topic.name %> </option>  
-                    <% }) %>  
-            
+                 
+                    <% rest.forEach((topic) => { %>
+                        <option>  <%= topic.name %> </option> 
+                    <% }) %>
+
                 </select>  
             
             
@@ -31,24 +24,49 @@
                 
                 <button>SUBMIT</button>
             </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-      
     </div>
+  
 </div>
+  
+<script>
+    // Get the modal
+    var modal = document.getElementById("myModal");
+    
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+    
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+    
+    // When the user clicks the button, open the modal 
+    btn.onclick = function() {
+      modal.style.display = "block";
+    }
+    
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+    
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+    </script>           
+            
+      
 
 <script>
-    const form = document.querySelector('form');
-    form.addEventListener('submit', async (e)=>{
+    const form2 = document.getElementById("demo2");
+    form2.addEventListener('submit', async (e)=>{
         e.preventDefault();
         
         //get the values
-        const name = form.name.value;
-        const topic = form.topic.value;
-        const link = form.link.value;
+        const name = form2.name.value;
+        const topic = form2.topic.value;
+        const link = form2.link.value;
 
         try{
             const res = await fetch('/addq',{

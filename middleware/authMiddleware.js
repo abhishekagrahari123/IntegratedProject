@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const topicModel = require("../models/topics.js");
 
 const requireAuth = (req,res,next) => {
     const token = req.cookies.jwt;
@@ -29,17 +30,18 @@ const checkUser = (req,res,next)=>{
         jwt.verify(token,'net ninja secret',async (err,decodedToken)=>{
             if(err){
                 res.locals.user = null;
+                
                 next();
             }else{
+                
                 let user = await User.findById(decodedToken.id);
-                //let adm = await User.findById(decodedToken.id);
-                //console.log(user);
+                
                 res.locals.user = user;
-               // console.log(res.locals.user.admin);
                 next();
             }
         });
     }else{
+     
         res.locals.user = null;
         next();
     }

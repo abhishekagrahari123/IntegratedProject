@@ -4,6 +4,7 @@ const question = require("../models/questions.js");
 const viewtopic = async (req,res) =>
 {
   const result = await topic.find();
+  res.locals.rest = result;
   res.render('main/topic.ejs',{b:result});
 }
 
@@ -12,7 +13,8 @@ const viewquestion = async (req,res) =>
   const id= req.params.id;
   console.log("requestparamaeter",req.params);
   l1 = await question.find({topic:id});
-  console.log("asdfa",l1);
+  const result = await topic.find();
+  res.locals.rest = result;
   res.render('main/question.ejs' , {list:l1});
 }
 

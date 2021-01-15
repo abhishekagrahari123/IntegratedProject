@@ -1,6 +1,6 @@
 <%- include('partials/header'); -%>
 
-<form>
+<form id="demo">
     <h2>Login</h2>
     <label for="email">Email</label>
     <input type="text" name="email" />
@@ -12,7 +12,7 @@
 </form>
 
 <script>
-    const form = document.querySelector('form');
+    const form = document.getElementById("demo");
     const emailError = document.querySelector('.email.error');
     const passwordError = document.querySelector('.password.error');
 

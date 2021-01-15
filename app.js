@@ -45,13 +45,21 @@ run().catch(err => console.log(err));
 
 //routes
 app.get('*',checkUser);
+
+run2 = async(req,res)=>{
+    const rest = await topic.find();
+    //res.render('addq',{b:result});
+    app.locals.rest = rest;
+}
+run2();
+
 app.get('/',(req,res)=>res.render('home'));  
 app.use(authRoutes);
 
 app.use(requireAuth);
-app.use(addqRoutes);
-app.use(mainroutes);
 
+app.use(mainroutes);
+app.use(addqRoutes);
 
 
 

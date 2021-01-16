@@ -27,6 +27,7 @@ app.use(express.static('public'));
 //view engine
 app.set('view engine','ejs');
 
+
 //database connection and admin bro setup
 const run = async () => {
     const dbURI ='mongodb+srv://abhishek:test1234@cluster0.j4tsp.mongodb.net/node-auth' ;
@@ -38,8 +39,10 @@ const run = async () => {
     }
     const adminBro = new AdminBro(AdminBroOptions);
     const router = AdminBroExpress.buildRouter(adminBro);
+    
     app.use(adminBro.options.rootPath, router);
 }
+
 
 run().catch(err => console.log(err));
 
@@ -48,21 +51,16 @@ app.get('*',checkUser);
 
 run2 = async(req,res)=>{
     const rest = await topic.find();
-    //res.render('addq',{b:result});
-    app.locals.rest = rest;
+    res.locals.rest = rest;
+    res.render('home')
 }
-run2();
 
-app.get('/',(req,res)=>res.render('home'));  
+app.get('/',run2);  
+
 app.use(authRoutes);
 
 app.use(requireAuth);
-
 app.use(mainroutes);
 app.use(addqRoutes);
-
-
-
-
 
 

@@ -6,9 +6,24 @@
     </div>
     <div class="headings">
         <h2>One Stop for your Interview</h2>
-        <a href="/topics" class="btn">View Topics</a>
+        
+
+
+        <nav>
+            <h1><a href="/">Interview Tracker</a></h1>
+            <ul>
+                <li><a href="/topics" class="btn">View Topics</a></li>
+                <% if(user){ %>    
+                <% if(user.admin){ %>
+                        <li><button><a href="/admin">APPROVE QUESTIONS</a></button></li>
+                    <% }else{ %>
+                        <li><button id="myBtn">ADD QUESTION</button></li>
+                    <% } %>
+                    <% } %>
+            </ul>
+        </nav>
     </div>
 </header>
 
-
+<%- include('addex.ejs'); -%>
 <%- include('partials/footer'); -%>

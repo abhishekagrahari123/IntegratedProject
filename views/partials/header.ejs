@@ -12,12 +12,6 @@
     <ul>
       <% if(user){ %>
           <li>Welcome, <%= user.email %></li>
-          
-          <% if(user.admin){ %>
-              <li><a href="/admin">APPROVE QUESTIONS</a></li>
-          <% }else{ %>
-            <li><button id="myBtn">ADD QUESTION</button></li>
-          <% } %>
       
           <li><a href="/logout">LOG OUT</a></li>
         
@@ -31,4 +25,3 @@
 
     </ul>
   </nav>
-  <%- include('../addex.ejs'); -%>

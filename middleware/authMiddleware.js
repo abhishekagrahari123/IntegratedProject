@@ -2,18 +2,28 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const topicModel = require("../models/topics.js");
 
+
 const requireAuth = (req,res,next) => {
     const token = req.cookies.jwt;
 
     //check json web token exists & is verified
     if(token){
-        jwt.verify(token,'net ninja secret',(err,decodedToken)=>{
+        jwt.verify(token,'net ninja secret',async(err,decodedToken)=>{
             if(err){
                 console.log(err.message);
                 res.redirect('/login');
             }else{
-                console.log(decodedToken);
-                next();
+                let user = await User.findById(decodedToken.id);
+                if(!user.admin){
+                    //console.log(req.url);
+                    if(req.url=='/admin'){
+                        res.send('You are not admin :(');
+                    }else{
+                        next();
+                    }
+                }else{
+                    next();
+                }
             }
         })
     }
